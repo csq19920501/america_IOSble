@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "a5d5b4d5-7199-2c42-b06e-a8d956e8c9a3++1012",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "a5d5b4d5-7199-2c42-b06e-a8d956e8c9a3++1012" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "a5d5b4d5-7199-2c42-b06e-a8d956e8c9a3++1012" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A9F04885-0E66-4E09-9E1C-FF8BDF726858",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "a5d5b4d5-7199-2c42-b06e-a8d956e8c9a3++1012" : "..\/..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Telecontroller",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Telecontroller.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/172.16.18.120\/svn\/AND_APP",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "a5d5b4d5-7199-2c42-b06e-a8d956e8c9a3++1012"
+    }
+  ]
+}

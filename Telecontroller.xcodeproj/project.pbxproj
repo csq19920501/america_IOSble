@@ -7,14 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		461ED1531FA42AE20013BB1E /* BTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 461ED1511FA42AE20013BB1E /* BTViewController.m */; };
+		461ED1541FA42AE20013BB1E /* BTViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461ED1521FA42AE20013BB1E /* BTViewController.xib */; };
+		461ED1561FA42BD80013BB1E /* ic_menu_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 461ED1551FA42BD80013BB1E /* ic_menu_refresh.png */; };
 		464BA5521EC54EFA008F33F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BA5511EC54EFA008F33F1 /* main.m */; };
 		464BA5551EC54EFA008F33F1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BA5541EC54EFA008F33F1 /* AppDelegate.m */; };
 		464BA5581EC54EFA008F33F1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BA5571EC54EFA008F33F1 /* ViewController.m */; };
-		464BA55B1EC54EFA008F33F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5591EC54EFA008F33F1 /* Main.storyboard */; };
 		464BA55D1EC54EFA008F33F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 464BA55C1EC54EFA008F33F1 /* Assets.xcassets */; };
 		464BA5601EC54EFA008F33F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 464BA55E1EC54EFA008F33F1 /* LaunchScreen.storyboard */; };
 		464BA56B1EC54EFB008F33F1 /* TelecontrollerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BA56A1EC54EFB008F33F1 /* TelecontrollerTests.m */; };
 		464BA5761EC54EFB008F33F1 /* TelecontrollerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464BA5751EC54EFB008F33F1 /* TelecontrollerUITests.m */; };
+		464BA5851EC55750008F33F1 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5841EC55750008F33F1 /* bg.png */; };
+		464BA5871EC558E9008F33F1 /* 收音_按钮zone_N.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5861EC558E9008F33F1 /* 收音_按钮zone_N.png */; };
+		464BA5891EC5656D008F33F1 /* 收音_圆盘.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5881EC5656D008F33F1 /* 收音_圆盘.png */; };
+		464BA58B1EC56875008F33F1 /* 圆盘.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA58A1EC56875008F33F1 /* 圆盘.png */; };
+		464BA58D1EC56965008F33F1 /* 收音_标识_HERTZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA58C1EC56965008F33F1 /* 收音_标识_HERTZ.png */; };
+		464BA58F1EC56A53008F33F1 /* 收音_按钮左_N.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA58E1EC56A52008F33F1 /* 收音_按钮左_N.png */; };
+		464BA5911EC56A75008F33F1 /* 收音_按钮右_N.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5901EC56A75008F33F1 /* 收音_按钮右_N.png */; };
+		464BA5931EC56AD3008F33F1 /* 收音_按钮_N.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5921EC56AD3008F33F1 /* 收音_按钮_N.png */; };
+		464BA5951EC5898A008F33F1 /* 收音_预存台_N.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5941EC5898A008F33F1 /* 收音_预存台_N.png */; };
+		464BA5971EC59FF3008F33F1 /* 收音_圆盘_按钮_播放暂停_P.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5961EC59FF3008F33F1 /* 收音_圆盘_按钮_播放暂停_P.png */; };
+		464BA5991EC5A045008F33F1 /* 收音_圆盘_按钮_音量加_P.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA5981EC5A045008F33F1 /* 收音_圆盘_按钮_音量加_P.png */; };
+		464BA59B1EC5A090008F33F1 /* 收音_圆盘_按钮_上一个_P.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA59A1EC5A090008F33F1 /* 收音_圆盘_按钮_上一个_P.png */; };
+		464BA59D1EC5A0C1008F33F1 /* 收音_圆盘_按钮_下一个_P.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA59C1EC5A0C1008F33F1 /* 收音_圆盘_按钮_下一个_P.png */; };
+		464BA59F1EC5A0D3008F33F1 /* 收音_圆盘_按钮_音量减_P.png in Resources */ = {isa = PBXBuildFile; fileRef = 464BA59E1EC5A0D3008F33F1 /* 收音_圆盘_按钮_音量减_P.png */; };
+		469E6E801EC6FC970062F615 /* ModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469E6E7F1EC6FC970062F615 /* ModeViewController.m */; };
+		469E6E831EC702CD0062F615 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469E6E811EC702CD0062F615 /* Main.storyboard */; };
+		469E6E851EC705CB0062F615 /* btn_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 469E6E841EC705CB0062F615 /* btn_n.png */; };
+		469E6E871EC70DCC0062F615 /* btn_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 469E6E861EC70DCC0062F615 /* btn_p.png */; };
+		46C98F461FCFD8D100B90D4C /* button_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C98F431FCFD8D100B90D4C /* button_p.png */; };
+		46C98F471FCFD8D100B90D4C /* left_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C98F441FCFD8D100B90D4C /* left_p.png */; };
+		46C98F481FCFD8D100B90D4C /* right_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C98F451FCFD8D100B90D4C /* right_p.png */; };
+		46E3990D1ED5639D00C33C3B /* EADSessionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E3990C1ED5639D00C33C3B /* EADSessionController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +59,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		461ED1501FA42AE20013BB1E /* BTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTViewController.h; sourceTree = "<group>"; };
+		461ED1511FA42AE20013BB1E /* BTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTViewController.m; sourceTree = "<group>"; };
+		461ED1521FA42AE20013BB1E /* BTViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTViewController.xib; sourceTree = "<group>"; };
+		461ED1551FA42BD80013BB1E /* ic_menu_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_menu_refresh.png; sourceTree = "<group>"; };
 		464BA54D1EC54EFA008F33F1 /* Telecontroller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telecontroller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		464BA5511EC54EFA008F33F1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		464BA5531EC54EFA008F33F1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		464BA5541EC54EFA008F33F1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		464BA5561EC54EFA008F33F1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		464BA5571EC54EFA008F33F1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		464BA55A1EC54EFA008F33F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		464BA55C1EC54EFA008F33F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		464BA55F1EC54EFA008F33F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		464BA5611EC54EFA008F33F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +78,30 @@
 		464BA5711EC54EFB008F33F1 /* TelecontrollerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelecontrollerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		464BA5751EC54EFB008F33F1 /* TelecontrollerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelecontrollerUITests.m; sourceTree = "<group>"; };
 		464BA5771EC54EFB008F33F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		464BA5841EC55750008F33F1 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		464BA5861EC558E9008F33F1 /* 收音_按钮zone_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_按钮zone_N.png"; sourceTree = "<group>"; };
+		464BA5881EC5656D008F33F1 /* 收音_圆盘.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘.png"; sourceTree = "<group>"; };
+		464BA58A1EC56875008F33F1 /* 圆盘.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "圆盘.png"; sourceTree = "<group>"; };
+		464BA58C1EC56965008F33F1 /* 收音_标识_HERTZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_标识_HERTZ.png"; sourceTree = "<group>"; };
+		464BA58E1EC56A52008F33F1 /* 收音_按钮左_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_按钮左_N.png"; sourceTree = "<group>"; };
+		464BA5901EC56A75008F33F1 /* 收音_按钮右_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_按钮右_N.png"; sourceTree = "<group>"; };
+		464BA5921EC56AD3008F33F1 /* 收音_按钮_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_按钮_N.png"; sourceTree = "<group>"; };
+		464BA5941EC5898A008F33F1 /* 收音_预存台_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_预存台_N.png"; sourceTree = "<group>"; };
+		464BA5961EC59FF3008F33F1 /* 收音_圆盘_按钮_播放暂停_P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘_按钮_播放暂停_P.png"; sourceTree = "<group>"; };
+		464BA5981EC5A045008F33F1 /* 收音_圆盘_按钮_音量加_P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘_按钮_音量加_P.png"; sourceTree = "<group>"; };
+		464BA59A1EC5A090008F33F1 /* 收音_圆盘_按钮_上一个_P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘_按钮_上一个_P.png"; sourceTree = "<group>"; };
+		464BA59C1EC5A0C1008F33F1 /* 收音_圆盘_按钮_下一个_P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘_按钮_下一个_P.png"; sourceTree = "<group>"; };
+		464BA59E1EC5A0D3008F33F1 /* 收音_圆盘_按钮_音量减_P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收音_圆盘_按钮_音量减_P.png"; sourceTree = "<group>"; };
+		469E6E7E1EC6FC970062F615 /* ModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeViewController.h; sourceTree = "<group>"; };
+		469E6E7F1EC6FC970062F615 /* ModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeViewController.m; sourceTree = "<group>"; };
+		469E6E821EC702CD0062F615 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		469E6E841EC705CB0062F615 /* btn_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_n.png; sourceTree = "<group>"; };
+		469E6E861EC70DCC0062F615 /* btn_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_p.png; sourceTree = "<group>"; };
+		46C98F431FCFD8D100B90D4C /* button_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_p.png; sourceTree = "<group>"; };
+		46C98F441FCFD8D100B90D4C /* left_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_p.png; sourceTree = "<group>"; };
+		46C98F451FCFD8D100B90D4C /* right_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_p.png; sourceTree = "<group>"; };
+		46E3990B1ED5639D00C33C3B /* EADSessionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EADSessionController.h; sourceTree = "<group>"; };
+		46E3990C1ED5639D00C33C3B /* EADSessionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EADSessionController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +152,19 @@
 		464BA54F1EC54EFA008F33F1 /* Telecontroller */ = {
 			isa = PBXGroup;
 			children = (
+				464BA5831EC55744008F33F1 /* image */,
 				464BA5531EC54EFA008F33F1 /* AppDelegate.h */,
 				464BA5541EC54EFA008F33F1 /* AppDelegate.m */,
 				464BA5561EC54EFA008F33F1 /* ViewController.h */,
 				464BA5571EC54EFA008F33F1 /* ViewController.m */,
-				464BA5591EC54EFA008F33F1 /* Main.storyboard */,
+				469E6E7E1EC6FC970062F615 /* ModeViewController.h */,
+				469E6E7F1EC6FC970062F615 /* ModeViewController.m */,
+				46E3990B1ED5639D00C33C3B /* EADSessionController.h */,
+				46E3990C1ED5639D00C33C3B /* EADSessionController.m */,
+				461ED1501FA42AE20013BB1E /* BTViewController.h */,
+				461ED1511FA42AE20013BB1E /* BTViewController.m */,
+				461ED1521FA42AE20013BB1E /* BTViewController.xib */,
+				469E6E811EC702CD0062F615 /* Main.storyboard */,
 				464BA55C1EC54EFA008F33F1 /* Assets.xcassets */,
 				464BA55E1EC54EFA008F33F1 /* LaunchScreen.storyboard */,
 				464BA5611EC54EFA008F33F1 /* Info.plist */,
@@ -138,6 +197,33 @@
 				464BA5771EC54EFB008F33F1 /* Info.plist */,
 			);
 			path = TelecontrollerUITests;
+			sourceTree = "<group>";
+		};
+		464BA5831EC55744008F33F1 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				461ED1551FA42BD80013BB1E /* ic_menu_refresh.png */,
+				469E6E841EC705CB0062F615 /* btn_n.png */,
+				464BA5841EC55750008F33F1 /* bg.png */,
+				464BA5861EC558E9008F33F1 /* 收音_按钮zone_N.png */,
+				464BA5881EC5656D008F33F1 /* 收音_圆盘.png */,
+				464BA58A1EC56875008F33F1 /* 圆盘.png */,
+				464BA58C1EC56965008F33F1 /* 收音_标识_HERTZ.png */,
+				464BA58E1EC56A52008F33F1 /* 收音_按钮左_N.png */,
+				464BA5901EC56A75008F33F1 /* 收音_按钮右_N.png */,
+				464BA5921EC56AD3008F33F1 /* 收音_按钮_N.png */,
+				464BA5941EC5898A008F33F1 /* 收音_预存台_N.png */,
+				464BA5961EC59FF3008F33F1 /* 收音_圆盘_按钮_播放暂停_P.png */,
+				464BA5981EC5A045008F33F1 /* 收音_圆盘_按钮_音量加_P.png */,
+				464BA59A1EC5A090008F33F1 /* 收音_圆盘_按钮_上一个_P.png */,
+				464BA59C1EC5A0C1008F33F1 /* 收音_圆盘_按钮_下一个_P.png */,
+				464BA59E1EC5A0D3008F33F1 /* 收音_圆盘_按钮_音量减_P.png */,
+				469E6E861EC70DCC0062F615 /* btn_p.png */,
+				46C98F431FCFD8D100B90D4C /* button_p.png */,
+				46C98F441FCFD8D100B90D4C /* left_p.png */,
+				46C98F451FCFD8D100B90D4C /* right_p.png */,
+			);
+			name = image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,8 +293,13 @@
 				TargetAttributes = {
 					464BA54C1EC54EFA008F33F1 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 72R92ZFFLQ;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = JHLRM332RX;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					464BA5651EC54EFB008F33F1 = {
 						CreatedOnToolsVersion = 8.0;
@@ -249,9 +340,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46C98F461FCFD8D100B90D4C /* button_p.png in Resources */,
+				46C98F471FCFD8D100B90D4C /* left_p.png in Resources */,
+				464BA5951EC5898A008F33F1 /* 收音_预存台_N.png in Resources */,
+				46C98F481FCFD8D100B90D4C /* right_p.png in Resources */,
+				464BA58B1EC56875008F33F1 /* 圆盘.png in Resources */,
+				464BA5891EC5656D008F33F1 /* 收音_圆盘.png in Resources */,
+				464BA58F1EC56A53008F33F1 /* 收音_按钮左_N.png in Resources */,
+				464BA59D1EC5A0C1008F33F1 /* 收音_圆盘_按钮_下一个_P.png in Resources */,
 				464BA5601EC54EFA008F33F1 /* LaunchScreen.storyboard in Resources */,
+				469E6E831EC702CD0062F615 /* Main.storyboard in Resources */,
+				464BA58D1EC56965008F33F1 /* 收音_标识_HERTZ.png in Resources */,
+				461ED1561FA42BD80013BB1E /* ic_menu_refresh.png in Resources */,
+				464BA59B1EC5A090008F33F1 /* 收音_圆盘_按钮_上一个_P.png in Resources */,
 				464BA55D1EC54EFA008F33F1 /* Assets.xcassets in Resources */,
-				464BA55B1EC54EFA008F33F1 /* Main.storyboard in Resources */,
+				461ED1541FA42AE20013BB1E /* BTViewController.xib in Resources */,
+				464BA5851EC55750008F33F1 /* bg.png in Resources */,
+				469E6E851EC705CB0062F615 /* btn_n.png in Resources */,
+				464BA59F1EC5A0D3008F33F1 /* 收音_圆盘_按钮_音量减_P.png in Resources */,
+				469E6E871EC70DCC0062F615 /* btn_p.png in Resources */,
+				464BA5971EC59FF3008F33F1 /* 收音_圆盘_按钮_播放暂停_P.png in Resources */,
+				464BA5931EC56AD3008F33F1 /* 收音_按钮_N.png in Resources */,
+				464BA5911EC56A75008F33F1 /* 收音_按钮右_N.png in Resources */,
+				464BA5871EC558E9008F33F1 /* 收音_按钮zone_N.png in Resources */,
+				464BA5991EC5A045008F33F1 /* 收音_圆盘_按钮_音量加_P.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +388,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				461ED1531FA42AE20013BB1E /* BTViewController.m in Sources */,
 				464BA5581EC54EFA008F33F1 /* ViewController.m in Sources */,
+				46E3990D1ED5639D00C33C3B /* EADSessionController.m in Sources */,
 				464BA5551EC54EFA008F33F1 /* AppDelegate.m in Sources */,
 				464BA5521EC54EFA008F33F1 /* main.m in Sources */,
+				469E6E801EC6FC970062F615 /* ModeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,20 +429,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		464BA5591EC54EFA008F33F1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				464BA55A1EC54EFA008F33F1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		464BA55E1EC54EFA008F33F1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				464BA55F1EC54EFA008F33F1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		469E6E811EC702CD0062F615 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				469E6E821EC702CD0062F615 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -427,11 +542,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 72R92ZFFLQ;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Telecontroller/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.haoke.Telecontroller;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haoke.tele;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -439,11 +560,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 72R92ZFFLQ;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ricardo Oviedo (JHLRM332RX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ricardo Oviedo (JHLRM332RX)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = JHLRM332RX;
 				INFOPLIST_FILE = Telecontroller/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.haoke.Telecontroller;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haoke.tele;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c6755652-fb6a-4a1a-aa9d-7748ef6192cd";
+				PROVISIONING_PROFILE_SPECIFIER = hertz22;
 			};
 			name = Release;
 		};
@@ -516,6 +643,7 @@
 				464BA57C1EC54EFB008F33F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		464BA57D1EC54EFB008F33F1 /* Build configuration list for PBXNativeTarget "TelecontrollerTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +652,7 @@
 				464BA57F1EC54EFB008F33F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		464BA5801EC54EFB008F33F1 /* Build configuration list for PBXNativeTarget "TelecontrollerUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +661,7 @@
 				464BA5821EC54EFB008F33F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

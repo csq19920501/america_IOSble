@@ -5,14 +5,24 @@
 //  Created by hk on 17/10/25.
 //  Copyright © 2017年 hk. All rights reserved.
 //
-
+#import "AppDelegate.h"
 #import "BTViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
-#define writeWithOutResponce  @"00010203-0405-0607-0809-0A0B0C0D2B11"
-#define readAndNotifi   @"00010203-0405-0607-0809-0A0B0C0D2B10"
-@interface BTViewController ()<UITableViewDataSource,UITableViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate>
+#define writeWithOutResponce  @"00010203-0405-0607-0809-0A0B0C0D2B11" //读写无回音
+#define readAndNotifi   @"00010203-0405-0607-0809-0A0B0C0D2B10"    //通知 读
+#define readAndNotifi2   @"00010203-0405-0607-0809-0A0B0C0D2B12"   //读写无回音
 
+#define UUID_bt  @"blueTooth_uuid"
+@interface BTViewController ()<UITableViewDataSource,UITableViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIAlertViewDelegate>
+{
+    int scanNumber ;
+    UIAlertView *viewAlert;
+    NSTimer *timerT;
+    int timeInt;
+    int changeBTLinkInt;
+    int countTimer;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) CBCentralManager* myCentralManager;
@@ -38,14 +48,23 @@
 }
 -(id)init{
     if (self = [super init]) {
+        scanNumber = 0;
+        countTimer = 0;
+        _isCanLink = YES;
+        _frequencyArray = [NSMutableArray array];
         self.myCentralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:nil];
         _myPeripherals = [NSMutableArray array];
         
-        double delayInSeconds = 2.0;
+        double delayInSeconds = 0.5;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds* NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self scanClick];
         });
+        timerT = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                  target:self
+                                                selector:@selector(cherkModeOrfrequency)
+                                                userInfo:nil
+                                                 repeats:YES];
     }
     return self;
 }
@@ -55,18 +74,38 @@
 - (IBAction)scan:(id)sender {
     [self scanClick];
 }
+-(void)cherkModeOrfrequency{
+    if (_BTisLink) {
+        if (_isNeedCheck) {
+            [self writeToPeripheral:@"aa550310ff12"];
+        }
+    }
+
+}
 //扫描
 - (void)scanClick{
-    [self.myCentralManager scanForPeripheralsWithServices:nil options:nil];
-    if(_myPeripheral != nil){
-        [_myCentralManager cancelPeripheralConnection:_myPeripheral];
-    }
+    countTimer = 0;
+    NSArray *peripheralArr = [_myPeripherals copy];
     
+    for (NSDictionary *peripheralDict in peripheralArr) {
+        CBPeripheral *peripheral = peripheralDict[@"peripheral"];
+        if (![self isPeripheralConnected:peripheral]) {
+            [_myPeripherals removeObject:peripheralDict];
+        }
+    }
+    [_tableView reloadData];
+
+    [self.myCentralManager scanForPeripheralsWithServices:nil options:nil];
+
+    scanNumber ++;
+    int a = scanNumber;
     double delayInSeconds = 20.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds* NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.myCentralManager stopScan];
-        NSLog(@"扫描超时,停止扫描!");
+        if (a == scanNumber) {
+            [self.myCentralManager stopScan];
+            NSLog(@"扫描超时,停止扫描!");
+        }
     });
 }
 //连接
@@ -78,21 +117,56 @@
     switch (central.state) {
         case CBCentralManagerStatePoweredOn:
             NSLog(@"蓝牙已打开, 请扫描外设!");
+            [viewAlert dismissWithClickedButtonIndex:0 animated:NO];
+            ((AppDelegate *)[UIApplication sharedApplication].delegate).BTisOpen = YES;
             break;
             
         default:
+        {
+            _myPeripheral  = nil;
+            [_tableView reloadData];
+            if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+                [_BLEDEGATE btIsConnect:NO];
+            }
+            ((AppDelegate *)[UIApplication sharedApplication].delegate).BTisOpen = NO;
+            
+            viewAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Please open Bluetooth" delegate:nil cancelButtonTitle:@"I Know" otherButtonTitles:nil, nil];
+            [viewAlert  show];
+        }
             break;
     }
 }
 //查到外设后的方法,peripherals
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    if (peripheral.name != nil) {
-        [_myPeripherals addObject:peripheral];
+    if ([peripheral.name isEqualToString:@"tModule"] || [peripheral.name isEqualToString:@"tModul"] || [peripheral.name isEqualToString:@"Hertz App"]) {
+        NSString* uuid = [NSString stringWithFormat:@"%@", [peripheral identifier]];
+        uuid = [uuid substringFromIndex:[uuid length] - 13];
+        
+        NSArray *peripheralArr = [_myPeripherals copy];
+        BOOL isFind = NO;
+        for (NSDictionary *peripheralDict in peripheralArr) {
+            NSString *peripheralUUID = peripheralDict[@"uuid"];
+            if ([peripheralUUID isEqualToString:uuid]) {
+                isFind = YES;
+            }
+        }
+        if (isFind) {
+            return;
+        }
+        countTimer = 0;
+        NSDictionary *peripheralDict = @{@"peripheral":peripheral,@"uuid":uuid};
+        
+        [_myPeripherals addObject:peripheralDict];
         NSInteger count = [_myPeripherals count];
         NSLog(@"my periphearls count : %ld\n", (long)count);
         [_tableView reloadData];
+        if (_isCanLink) {  //[[[NSUserDefaults standardUserDefaults]objectForKey:UUID_bt] isEqualToString:uuid]
+            if (_myPeripheral == nil) {
+                _myPeripheral = peripheral;
+                [self connectClick];
+            }
+        }
     }
-    
 }
 //连接外设成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
@@ -102,15 +176,70 @@
     [self.myPeripheral discoverServices:nil];
     NSLog(@"扫描服务...");
     
+    
+    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+        [_BLEDEGATE btIsConnect:YES];
+    }
+    timeInt = 8;
+//    if (timerT == nil) {
+//        
+//    }
+    
+}
+-(void)cherkBT{
+    timeInt --;
+    changeBTLinkInt --;
+    NSLog(@"timeInt = %d  changeBTLinkInt= %d",timeInt,changeBTLinkInt);
+    if (timeInt <= 0) {
+        if (_myPeripheral!= nil) {
+            [_myCentralManager cancelPeripheralConnection:_myPeripheral];
+            _myPeripheral = nil;
+        }
+        [self scanClick];
+        timeInt = 0;
+    }
+    if (changeBTLinkInt <= 0) {
+
+        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+            [_BLEDEGATE btIsConnect:NO];
+        }
+        changeBTLinkInt = 0;
+    }
+    if (_myPeripherals.count == 0 ) {
+        countTimer ++;
+        if (countTimer >= 8) {
+            if (_myPeripheral!= nil) {
+                [_myCentralManager cancelPeripheralConnection:_myPeripheral];
+                _myPeripheral = nil;
+            }
+            [self scanClick];
+            timeInt = 0;
+            if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+                [_BLEDEGATE btIsConnect:NO];
+            }
+            changeBTLinkInt = 0;
+        }
+    }
 }
 //连接断开时调用
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    NSLog(@"%@", error);
+    NSLog(@"%@   _myPeripheral = nil", error);
+    _myPeripheral  = nil;
     [_tableView reloadData];
+    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+        [_BLEDEGATE btIsConnect:NO];
+    }
+    [self scanClick];
 }
 //连接外设失败
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    NSLog(@"%@", error);
+    NSLog(@"%@   _myPeripheral = nil", error);
+    _myPeripheral  = nil;
+    [_tableView reloadData];
+    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(btIsConnect:)]) {
+        [_BLEDEGATE btIsConnect:NO];
+    }
+    [self scanClick];
 }
 //已发现服务
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error{
@@ -145,37 +274,215 @@
                 self.writeCharacteristic = c;
                 NSLog(@"设置WRITE : %@", c.UUID);
             }
+            
+            
+            NSString* uuid = [NSString stringWithFormat:@"%@", [peripheral identifier]];
+            uuid = [uuid substringFromIndex:[uuid length] - 13];
+            [[NSUserDefaults standardUserDefaults]setObject:uuid forKey:UUID_bt];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
         }
 
         if(c.properties & CBCharacteristicPropertyRead){
             NSLog(@"找到READ and  notify: %@", c.UUID);
+//            if ([c.UUID isEqual:[CBUUID UUIDWithString:readAndNotifi]]) {
+//                self.readCharacteristic = c;
+//                [self.myPeripheral setNotifyValue:YES forCharacteristic:c];
+//                [self.myPeripheral readValueForCharacteristic:c];
+//                NSLog(@"设置READ and  notify: %@", c.UUID);
+//            }
+        }
+        if(c.properties & CBCharacteristicPropertyNotify){
+            NSLog(@"找到Notify : %@", c.UUID);
             if ([c.UUID isEqual:[CBUUID UUIDWithString:readAndNotifi]]) {
                 self.readCharacteristic = c;
                 [self.myPeripheral setNotifyValue:YES forCharacteristic:c];
                 [self.myPeripheral readValueForCharacteristic:c];
-                NSLog(@"设置READ and  notify: %@", c.UUID);
+                NSLog(@"设置Notify : %@", c.UUID);
             }
         }
-//        if(c.properties & CBCharacteristicPropertyNotify){
-//            NSLog(@"找到Notify : %@", c.UUID);
-//            if ([c.UUID isEqual:[CBUUID UUIDWithString:@"8877"]]) {
-//                self.readCharacteristic = c;
-//                [self.myPeripheral setNotifyValue:YES forCharacteristic:c];
-//                [self.myPeripheral readValueForCharacteristic:c];
-//                NSLog(@"设置Notify : %@", c.UUID);
-//            }
-//        }
     }
 }
 //获取外设发来的数据,不论是read和notify,获取数据都从这个方法中读取
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
+    
+    timeInt = 8;
+    changeBTLinkInt = 15;
+    
     [peripheral readRSSI];
     NSNumber* rssi = [peripheral RSSI];
-    if([characteristic.UUID isEqual:[CBUUID UUIDWithString:readAndNotifi]]){
-        
+//    if([characteristic.UUID isEqual:[CBUUID UUIDWithString:readAndNotifi]]){
+    
         NSData* data = characteristic.value;
         NSString* value = [self hexadecimalString:data];
         NSLog(@"接受到数据%@  rssi%@",value,rssi);
+
+
+
+    int dataLong = ((const char *)[data bytes])[2];
+    switch (dataLong) {
+        case 0x0e:
+        {
+            _isNeedCheck = NO;
+            //        aa 55 0e 02 0212 0258 03e8 0578 06ae 0212 a0
+            //        aa 55 0e 02 0212 0258 03e8 0578 06ae 222e ad
+            if (((const char *)[data bytes])[3] == 0x02) {
+                _frequency = AM;
+            }else if(((const char *)[data bytes])[3] == 0x01){
+                _frequency = FM;
+            }else if(((const char *)[data bytes])[3] == 0x04){
+                _frequency = WB;
+            }
+            [_frequencyArray removeAllObjects];
+            
+            for (int i = 4; i < 15; i = i + 2)  {
+                UInt16 a = ((const char *)[data bytes])[i] & 0xFF;
+                UInt16 b = ((const char *)[data bytes])[i + 1] & 0xFF;
+                
+
+                
+                UInt16 c = (a << 8) + b;
+
+                if  (_frequency == FM){
+                    NSString *cStr = [NSString stringWithFormat:@"%.2f",c/100.];
+                    [_frequencyArray addObject:cStr];
+                }else if(_frequency == AM){
+                    NSString *cStr = [NSString stringWithFormat:@"%d",c];
+                    [_frequencyArray addObject:cStr];
+                }
+                else if(_frequency == WB){
+                    NSString *cStr = [NSString stringWithFormat:@"162.%d",c];
+                    [_frequencyArray addObject:cStr];
+                }
+            }
+            if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(changeFrequency:)]) {
+                [_BLEDEGATE changeFrequency:_frequencyArray];
+            }
+        }
+            break;
+//        case 0x03:
+//        {
+//         
+//            _modeInt = ((const char *)[data bytes])[3];
+//            
+//        }
+//            break;
+        default:
+        {
+            //aa 55 03 02 01 06
+            int address = ((const char *)[data bytes])[3];
+            switch (address) {
+//                case 0x02:
+//                {
+//                    UInt16 b = ((const char *)[data bytes])[4];
+//                    NSString *bStr = [NSString stringWithFormat:@"%d",b];
+//                    
+//                    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(changeHeadMode:)]) {
+//                        [_BLEDEGATE changeHeadMode:bStr];
+//                    }
+//                }
+//                    break;
+                case 0x03:{
+                    _isNeedCheck = NO;
+                    if (((const char *)[data bytes])[4] != 0) {
+                        _modeInt = ((const char *)[data bytes])[4];
+                    }else{
+                        _modeInt = ((const char *)[data bytes])[5];
+                    }
+                    
+//                    NSString *bStr = [NSString stringWithFormat:@"%d",b];
+//                    
+//                    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(changeMuteState:)]) {
+//                        [_BLEDEGATE changeMuteState:bStr];
+//                    }
+                }
+                    break;
+                case 0x04:
+                {
+                    //        aa 55 0e 02 0212 0258 03e8 0578 06ae 222e ad
+//                    _frequency = WB;
+//                    [_frequencyArray removeAllObjects];
+//                    for (int i = 4; i < 15; i = i + 2)  {
+//                        UInt16 a = ((const char *)[data bytes])[i] & 0xFF;
+//                        UInt16 b = ((const char *)[data bytes])[i + 1] & 0xFF;
+//                        
+//                        
+//                        
+//                        UInt16 c = (a << 8) + b;
+//                        NSString *cStr = [NSString stringWithFormat:@"162.%d",c];
+//                        [_frequencyArray addObject:cStr];
+//                        
+//                    }
+//                    if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(changeFrequency:)]) {
+//                        [_BLEDEGATE changeFrequency:_frequencyArray];
+//                    }
+
+                    
+                    
+                }
+                    break;
+                    //menu键状态
+                case 0x05:
+                {
+//          接受到数据aa5503050109
+                 int muteInt = ((const char *)[data bytes])[4];
+                    if (muteInt == 0) {
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1005 isSelected:NO];
+                        }
+                    }else if(muteInt == 1){
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1005 isSelected:YES];
+                        }
+                    }
+                    
+
+                }
+                    break;
+                    //load键状态
+                case 0x06:
+                {
+                    int muteInt = ((const char *)[data bytes])[4];
+                    if (muteInt == 0) {
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1006 isSelected:NO];
+                        }
+                    }else if(muteInt == 1){
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1006 isSelected:YES];
+                        }
+                    }
+
+                }
+                    break;
+                    //off键状态
+                case 0x07:
+                {
+                    int muteInt = ((const char *)[data bytes])[4];
+                    if (muteInt == 1) {
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1007 isSelected:NO];
+                        }
+                    }else if(muteInt == 0){
+                        if (_BLEDEGATE && [_BLEDEGATE respondsToSelector:@selector(setHigthButton:
+                                                                                   isSelected:)]) {
+                            [_BLEDEGATE setHigthButton:1007 isSelected:YES];
+                        }
+                    }
+
+                }
+                    break;
+                default:
+                    break;
+            }
+        
+        }
+            break;
     }
 }
 //中心读取外设实时数据
@@ -192,14 +499,24 @@
     }
 }
 //向peripheral中写入数据
-- (void)writeToPeripheral:(NSData *)data{
+- (void)writeToPeripheral:(NSString *)data{
     if(!_writeCharacteristic){
         NSLog(@"writeCharacteristic is nil!");
         return;
     }
     
-//    NSData* value = [self dataWithHexstring:data];
-    [_myPeripheral writeValue:data forCharacteristic:_writeCharacteristic type:CBCharacteristicWriteWithResponse];
+    NSData* value = [self dataWithHexstring:data];
+    [_myPeripheral writeValue:value forCharacteristic:_writeCharacteristic type:CBCharacteristicWriteWithoutResponse];
+    
+//    double delayInSeconds = 0.3f;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
+//                   {
+//                       
+//                       [self.myPeripheral readValueForCharacteristic:self.readCharacteristic];
+//                       
+//                   });
+
 }
 //向peripheral中写入数据后的回调函数
 - (void)peripheral:(CBPeripheral*)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
@@ -216,28 +533,52 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
-    CBPeripheral *objPeripheral = _myPeripherals[indexPath.row];
+    NSDictionary *peripheral = _myPeripherals[indexPath.row];
+    CBPeripheral *objPeripheral = peripheral[@"peripheral"];
     cell.textLabel.text = objPeripheral.name;
     
-    NSString* uuid = [NSString stringWithFormat:@"%@", [[_myPeripherals objectAtIndex:indexPath.row] identifier]];
-    uuid = [uuid substringFromIndex:[uuid length] - 13];
+    NSString* uuid = peripheral[@"uuid"];
     
     if([self isPeripheralConnected:objPeripheral]){
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@_已连接",uuid];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@_connected",uuid];
     }else{
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@_未连接",uuid];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@_disconnect",uuid];
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSUInteger rowNo = indexPath.row;
-    _myPeripheral = [_myPeripherals objectAtIndex:rowNo];
-    [self connectClick];
+
+    
+    NSDictionary *peripheral = _myPeripherals[indexPath.row];
+    CBPeripheral *objPeripheral = peripheral[@"peripheral"];
+    if ([self isPeripheralConnected:objPeripheral]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Disconnecting Bluetooth will clear the Bluetooth connection record,confirm?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+        [alertView show];
+    }else{
+        _isCanLink = YES;
+        NSDictionary *peripheral = _myPeripherals[indexPath.row];
+        CBPeripheral *objPeripheral = peripheral[@"peripheral"];
+        if (_myPeripheral!= nil) {
+            [_myCentralManager cancelPeripheralConnection:_myPeripheral];
+            _myPeripheral = nil;
+        }
+        _myPeripheral = objPeripheral;
+        [self connectClick];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+            if(_myPeripheral != nil){
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:UUID_bt];
+                [_myCentralManager cancelPeripheralConnection:_myPeripheral];
+                _myPeripheral = nil;
+                _isCanLink = NO;
+            }
+    }
+}
 
 
 - (void)viewDidLoad {
@@ -257,7 +598,7 @@
         return nil;
     }
     NSUInteger dataLength = [data length];
-    NSMutableString* hexString = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    NSMutableString* hexString = [NSMutableString stringWithCapacity:(dataLength * 2 )];
     for(int i = 0; i < dataLength; i++){
         [hexString appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
     }
