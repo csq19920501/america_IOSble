@@ -15,4 +15,4 @@
 @property(nonatomic,assign)BOOL isCanScan;
 @property(nonatomic,assign)BOOL BTisOpen;
 @end
-
+//第一个用gitHub管理的项目

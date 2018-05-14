@@ -181,9 +181,7 @@
         [_BLEDEGATE btIsConnect:YES];
     }
     timeInt = 8;
-//    if (timerT == nil) {
-//        
-//    }
+
     
 }
 -(void)cherkBT{
